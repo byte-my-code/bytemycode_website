@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on A Linux &amp; *BSD Blog</title>
+    <link>https://bytemycode.co.uk/posts/</link>
+    <description>Recent content in Posts on A Linux &amp; *BSD Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <copyright>Copyright Graham Kerr</copyright>
+    <lastBuildDate>Sun, 24 Sep 2023 15:22:23 +0100</lastBuildDate><atom:link href="https://bytemycode.co.uk/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Setting Up A Wireless USB Network Card In FreeBSD</title>
+      <link>https://bytemycode.co.uk/posts/setting-up-rtl8188e-freebsd/</link>
+      <pubDate>Sun, 24 Sep 2023 15:22:23 +0100</pubDate>
+      
+      <guid>https://bytemycode.co.uk/posts/setting-up-rtl8188e-freebsd/</guid>
+      <description>Introduction Recently I bought a TP Link USB adapter, TL-WN725N which is based around the RTL8188EU network device. I wanted to enable Wifi on my laptop where the wifi card was not supported under FreeBSD. What follows are the steps I took to enable it on my laptop (an old Dell Inspiron 3000).
+I wrote this handy guide mainly for my future self, knowing that at some point in the future I&amp;rsquo;ll be scratching my head trying to figure out how do I get the WiFi working on a BSD box again!</description>
+    </item>
+    
+  </channel>
+</rss>

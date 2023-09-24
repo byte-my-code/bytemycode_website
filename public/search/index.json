@@ -1,0 +1,17 @@
+
+{
+    
+    
+    
+    
+        
+        
+            
+                
+            
+        
+        
+    
+    "pages": [{"date":"2023-09-24","image":"/images/wifi.jpg","imageAlt":"","link":"https://bytemycode.co.uk/posts/setting-up-rtl8188e-freebsd/","summary":"Setting up a TP Link TL-WN725N USB wireless adapter on FreeBSD. This is a walkthrough guide for installing the adapter based on the RTL8188EU network device.","tags":["FreeBSD","networking","TL-WN725N","TP Link","wifi"],"text":"introduction recently i bought a tp link usb adapter, tl-wn725n which is based around the rtl8188eu network device. i wanted to enable wifi on my laptop where the wifi card was not supported under freebsd. what follows are the steps i took to enable it on my laptop (an old dell inspiron 3000).\ni wrote this handy guide mainly for my future self, knowing that at some point in the future i\u0026rsquo;ll be scratching my head trying to figure out how do i get the wifi working on a bsd box again!\nnotes this guide is written for the rtwn driver for the realtec rtl8188e(u) card and similar, and is being installed on a system with frebsd-13.2-release, with all patches and updates applied.\nas we\u0026rsquo;ll be editing system files, remeber to either login as root or prepend the commands with either doas or sudo depending on which is installed on your system.\nstep 1 firsty we need to create the wireless device by running\nifconfig wlan create wlandev rtwn0 then add the following code to /etc/rc.conf:\nwlans_rtwn0=\u0026#34;wlan0\u0026#34; step 2 next we need to add the details about the wireless network we want to connect to, to the /etc/wpa_supplicant.conf file. if it doesn\u0026rsquo;t exist, then create it. append the following to the end of the file:\nnetwork={ ssid=\u0026#34;myroutername\u0026#34; # replace with your routers ssid psk=\u0026#34;veryseceretpassword\u0026#34; # replace with your router wpa key } once you\u0026rsquo;ve added this, run the following command to check it\u0026rsquo;s working ok, and that no errors are reported\nwpa_supplicant -b -i wlan0 -c /etc/wpa_supplicant.conf as long as no errors are reported, ctrl-c to break out in the terminal, ready to complete the setup.\nstep 3 now that the wifi credentials have been saved and no errors have been reported, we need to tell the system how to connect - in this case, we\u0026rsquo;re using wpa authentication and syncdhcp to get our ip address and dns server info from the router. add the following to your /etc/rc.conf file to persist across reboots:\nifconfig_wlan0=\u0026#34;wpa syncdhcp\u0026#34; save the file, and then run the following command in the terminal to restart networking. after this command is run, you should find that your wifi is connected.\nservice netif restart conclusion hopefully by following the above steps, you should have a fully working wifi connection on your box. these instructions can be replicated for other wifi cards by replacing the rtwn0 text where it appears in the code blocks with the name of the driver for the card you are trying to use (assuming that there is a driver for your card and it is available for the version of freebsd you are using).\n","title":"Setting Up A Wireless USB Network Card In FreeBSD"}]
+}
+

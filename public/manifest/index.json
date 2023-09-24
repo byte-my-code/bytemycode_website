@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json.schemastore.org/web-manifest-combined.json",
+  "name": "A Linux & *BSD Blog",
+  "short_name": "A Linux & *BSD Blog",
+  "start_url": "/",
+  "display": "standalone",
+  
+  
+  
+  "background_color": "#242629",
+  "theme_color": "#db5793"
+  
+    ,
+    "description": "A blog mainly about Linux and FreeBSD"
+  
+  
+}
+

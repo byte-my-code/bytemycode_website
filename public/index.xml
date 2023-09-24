@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><?xml-stylesheet href="/feed_style.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="https://www.rssboard.org/media-rss">
+  <channel>
+    <title>A Linux &amp; *BSD Blog</title>
+    <link>https://bytemycode.co.uk/</link>
+    <description>Recent content on A Linux &amp; *BSD Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <copyright>Copyright Graham Kerr</copyright>
+    <lastBuildDate>Sun, 24 Sep 2023 15:22:23 +0100</lastBuildDate><atom:link href="https://bytemycode.co.uk/index.xml" rel="self" type="application/rss+xml" /><icon>https://bytemycode.co.uk/img/icon.svg</icon>
+    
+    
+    <item>
+      <title>Setting Up A Wireless USB Network Card In FreeBSD</title>
+      <link>https://bytemycode.co.uk/posts/setting-up-rtl8188e-freebsd/</link>
+      <pubDate>Sun, 24 Sep 2023 15:22:23 +0100</pubDate>
+      
+      <guid>https://bytemycode.co.uk/posts/setting-up-rtl8188e-freebsd/</guid>
+      <description><![CDATA[<h2 id="introduction">Introduction</h2>
+<p>Recently I bought a TP Link USB adapter, TL-WN725N which is based around the RTL8188EU network
+device. I wanted to enable Wifi on my laptop where the wifi card was not supported under
+FreeBSD. What follows are the steps I took to enable it on my laptop (an old Dell Inspiron 3000).</p>
+<p>I wrote this handy guide mainly for my future self, knowing that at some point in the future I&rsquo;ll be
+scratching my head trying to figure out how do I get the WiFi working on a BSD box again!</p>
+<h3 id="notes">Notes</h3>
+<p>This guide is written for the <code>rtwn</code> driver for the RealTec RTL8188E(U) card and similar, and
+is being installed on a system with FreBSD-13.2-RELEASE, with all patches and updates applied.</p>
+<p>As we&rsquo;ll be editing system files, remeber to either login as root or prepend the commands with
+either <code>doas</code> or <code>sudo</code> depending on which is installed on your system.</p>
+<h3 id="step-1">Step 1</h3>
+<p>Firsty we need to create the wireless Device by running</p>
+<pre tabindex="0"><code>ifconfig wlan create wlandev rtwn0
+</code></pre><p>Then add the following code to <code>/etc/rc.conf</code>:</p>
+<pre tabindex="0"><code>wlans_rtwn0=&#34;wlan0&#34;
+</code></pre><h3 id="step-2">Step 2</h3>
+<p>Next we need to add the details about the wireless network we want to connect to, to the
+<code>/etc/wpa_supplicant.conf</code> file. If it doesn&rsquo;t exist, then create it. Append the following
+to the end of the file:</p>
+<pre tabindex="0"><code>network={
+    ssid=&#34;MYROUTERNAME&#34;         # Replace with your routers SSID
+    psk=&#34;VerySeceretPassword&#34;   # Replace with your router WPA key
+}
+</code></pre><p>Once you&rsquo;ve added this, run the following command to check it&rsquo;s working ok, and that no errors
+are reported</p>
+<pre tabindex="0"><code>wpa_supplicant -B -i wlan0 -c /etc/wpa_supplicant.conf
+</code></pre><p>As long as no errors are reported, <code>ctrl-c</code> to break out in the terminal, ready to complete
+the setup.</p>
+<h3 id="step-3">Step 3</h3>
+<p>Now that the WiFi credentials have been saved and no errors have been reported, we need to tell
+the system how to connect - in this case, we&rsquo;re using WPA authentication and SYNCDHCP to get
+our IP address and DNS server info from the router.
+Add the following to your <code>/etc/rc.conf</code> file to persist across reboots:</p>
+<pre tabindex="0"><code>ifconfig_wlan0=&#34;WPA SYNCDHCP&#34;
+</code></pre><p>Save the file, and then run the following command in the terminal to restart networking. After
+this command is run, you should find that your WiFi is connected.</p>
+<pre tabindex="0"><code>service netif restart
+</code></pre><h3 id="conclusion">Conclusion</h3>
+<p>Hopefully by following the above steps, you should have a fully working wifi connection on
+your box. These instructions can be replicated for other wifi cards by replacing the
+<code>rtwn0</code> text where it appears in the code blocks with the name of the driver for the
+card you are trying to use (assuming that there is a driver for your card and it is available
+for the version of FreeBSD you are using).</p>
+]]></description>
+      
+        <media:thumbnail url="https://bytemycode.co.uk/images/wifi.jpg" />
+      
+    </item>
+    
+    
+    
+    
+    
+    
+  </channel>
+</rss>

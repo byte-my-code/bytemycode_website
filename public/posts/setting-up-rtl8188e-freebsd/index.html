@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html class="" lang="en-gb"><head>
+    
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=7" />
+
+    <link
+    rel="icon"
+    href='/favicon.png'
+/>
+<link
+    rel="shortcut icon"
+    href='/favicon.ico'
+    type="image/x-icon"
+/>
+<link
+    rel="apple-touch-icon"
+    href='/apple-touch-icon.png'
+/>
+
+<title>
+        
+            Setting Up A Wireless USB Network Card In FreeBSD  &ndash;
+        
+        A Linux &amp; *BSD Blog
+    </title>
+
+    
+    <link href="/symbols-nerd-font/symbols-nerd-font.css" rel="stylesheet" integrity="sha512-lydow8GLOLlYNOtHlksNCmGWWCBsbIEtikXpHzfWqx78HLlyQZHOzyLwPpKol4Th6aCwLUXOfODVYgwrd3nwKQ=="/>
+    <link href="/jetbrains-mono/jetbrains-mono.css" rel="stylesheet" integrity="sha512-tJxlgL6v1Y7kFf+qB8SloaAMKnOAw6WouknxXtIjkBux9Y/9aX81EUWOJO8c/3l98DmjG8brr4to7zaez606Fg=="/>
+
+    
+    
+    <link type="text/css" rel="stylesheet" href=https://bytemycode.co.uk/css/styles.abbd6311bb4b6ca58f8e7398140529245ae0f6428b759fcd830742eee2619eabb900ba9914a9affb82aa9a16a9b9ea727bb315315a976a0db0e7513a5f12c504.css integrity="sha512-q71jEbtLbKWPjnOYFAUpJFrg9kKLdZ/NgwdC7uJhnqu5ALqZFKmv&#43;4Kqmhapuepye7MVMVqXag2w51E6XxLFBA==" />
+<meta name="author" content="Hairymunky" />
+
+    
+        <meta name="keywords" content='FreeBSD, networking, TL-WN725N, TP Link, wifi' />
+    
+    
+        <meta name="description" content="Setting up a TP Link TL-WN725N USB wireless adapter on FreeBSD. This is a walkthrough guide for installing the adapter based on the RTL8188EU network device." />
+    
+
+<meta property="og:site_name"
+    content='A Linux &amp; *BSD Blog' />
+
+    <meta property="og:title" content="Setting Up A Wireless USB Network Card In FreeBSD" />
+    <meta property="og:type" content="article" />
+    
+    <meta
+        property="article:author" content="Hairymunky" />
+    <meta
+        property="article:published_time"
+        content='2023-09-24T15:22:23Z&#43;0100' />
+    
+        
+            <meta property="article:tag" content="FreeBSD" />
+        
+            <meta property="article:tag" content="networking" />
+        
+            <meta property="article:tag" content="TL-WN725N" />
+        
+            <meta property="article:tag" content="TP Link" />
+        
+            <meta property="article:tag" content="wifi" />
+        
+    
+    <meta property="og:url" content="https://bytemycode.co.uk/posts/setting-up-rtl8188e-freebsd/" />
+    
+    
+        
+            
+        
+    
+    <meta property="og:image"
+        content="https://bytemycode.co.uk/images/wifi.jpg" />
+    
+        <meta property="og:description" content="Setting up a TP Link TL-WN725N USB wireless adapter on FreeBSD. This is a walkthrough guide for installing the adapter based on the RTL8188EU network device." />
+    
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:domain"
+      content='bytemycode.co.uk'
+/>
+<meta property="twitter:url" content="https://bytemycode.co.uk/posts/setting-up-rtl8188e-freebsd/" />
+
+
+    <meta name="twitter:title" content="Setting Up A Wireless USB Network Card In FreeBSD" />
+    
+    
+    
+        
+            
+        
+    
+    <meta name="twitter:image"
+        content="https://bytemycode.co.uk/images/wifi.jpg" />
+    
+        <meta name="twitter:description" content="Setting up a TP Link TL-WN725N USB wireless adapter on FreeBSD. This is a walkthrough guide for installing the adapter based on the RTL8188EU network device." />
+    
+
+<link rel="manifest" href="/manifest/index.json" />
+</head>
+
+
+<body>
+        <div id="baseContainer"><header class="">
+<div class="titleAndSearchContainer">
+        <div id="titleContainer">
+            
+                <a class="unstyledLink" href="/">
+                    <img src='/logo.svg' alt='Logo'/>
+                </a>
+            
+            <div class="rightOfLogo">
+                <div class="titleAndHamburger">
+                    <h1>
+                        <a class="unstyledLink" href="/">A Linux &amp; *BSD Blog</a>
+                        
+                    </h1>
+                    
+                </div>
+                <div id="wide_nav"><nav>
+    
+    <ul id="main-nav">
+        <li><a href="/">Home</a></li>
+        
+            <li><a href="/posts">Posts</a></li>
+        
+        
+        
+        
+        
+        
+        
+            <li><a href="/tags">Tags</a></li>
+        
+        
+    </ul>
+</nav>
+</div>
+            </div>
+        </div>
+        <div class="search">
+    <input id="searchbar" type="text" placeholder='Search' />
+    <a class="nerdlink" onclick="newSearch();">&#xf002;</a>
+</div>
+<script>
+    function newSearch() {
+        let term = searchbar.value.trim();
+        if (!term) return;
+        location.href = `/search?q=${term}`;
+    }
+    searchbar.onkeyup = (ev) => {if (ev.keyCode == 13) newSearch()};
+</script>
+
+    </div>
+    <div id="links">
+        <a
+    
+        rel="noreferrer"
+    
+    target="_blank"
+    class="nerdlink"
+    href="/index.xml">
+    
+    
+        &#xf09e;
+    
+    <span>
+        RSS
+    </span>
+</a>
+
+        
+        
+    </div>
+    
+
+</header>
+<div id="contentContainer">
+                <div id="content">
+                    <main>
+<article class="card single">
+    
+        <h1>Setting Up A Wireless USB Network Card In FreeBSD</h1>
+    
+    
+        <p class="date">
+            <span title='Date'> </span>
+    2023-09-24
+
+</p>
+    
+    
+    
+        <figure style="margin: 0">
+            
+                <img src="/images/wifi.jpg" alt="" />
+            
+            
+        </figure>
+    
+    
+    <div><h2 id="introduction">Introduction</h2>
+<p>Recently I bought a TP Link USB adapter, TL-WN725N which is based around the RTL8188EU network
+device. I wanted to enable Wifi on my laptop where the wifi card was not supported under
+FreeBSD. What follows are the steps I took to enable it on my laptop (an old Dell Inspiron 3000).</p>
+<p>I wrote this handy guide mainly for my future self, knowing that at some point in the future I&rsquo;ll be
+scratching my head trying to figure out how do I get the WiFi working on a BSD box again!</p>
+<h3 id="notes">Notes</h3>
+<p>This guide is written for the <code>rtwn</code> driver for the RealTec RTL8188E(U) card and similar, and
+is being installed on a system with FreBSD-13.2-RELEASE, with all patches and updates applied.</p>
+<p>As we&rsquo;ll be editing system files, remeber to either login as root or prepend the commands with
+either <code>doas</code> or <code>sudo</code> depending on which is installed on your system.</p>
+<h3 id="step-1">Step 1</h3>
+<p>Firsty we need to create the wireless Device by running</p>
+<pre tabindex="0"><code>ifconfig wlan create wlandev rtwn0
+</code></pre><p>Then add the following code to <code>/etc/rc.conf</code>:</p>
+<pre tabindex="0"><code>wlans_rtwn0=&#34;wlan0&#34;
+</code></pre><h3 id="step-2">Step 2</h3>
+<p>Next we need to add the details about the wireless network we want to connect to, to the
+<code>/etc/wpa_supplicant.conf</code> file. If it doesn&rsquo;t exist, then create it. Append the following
+to the end of the file:</p>
+<pre tabindex="0"><code>network={
+    ssid=&#34;MYROUTERNAME&#34;         # Replace with your routers SSID
+    psk=&#34;VerySeceretPassword&#34;   # Replace with your router WPA key
+}
+</code></pre><p>Once you&rsquo;ve added this, run the following command to check it&rsquo;s working ok, and that no errors
+are reported</p>
+<pre tabindex="0"><code>wpa_supplicant -B -i wlan0 -c /etc/wpa_supplicant.conf
+</code></pre><p>As long as no errors are reported, <code>ctrl-c</code> to break out in the terminal, ready to complete
+the setup.</p>
+<h3 id="step-3">Step 3</h3>
+<p>Now that the WiFi credentials have been saved and no errors have been reported, we need to tell
+the system how to connect - in this case, we&rsquo;re using WPA authentication and SYNCDHCP to get
+our IP address and DNS server info from the router.
+Add the following to your <code>/etc/rc.conf</code> file to persist across reboots:</p>
+<pre tabindex="0"><code>ifconfig_wlan0=&#34;WPA SYNCDHCP&#34;
+</code></pre><p>Save the file, and then run the following command in the terminal to restart networking. After
+this command is run, you should find that your WiFi is connected.</p>
+<pre tabindex="0"><code>service netif restart
+</code></pre><h3 id="conclusion">Conclusion</h3>
+<p>Hopefully by following the above steps, you should have a fully working wifi connection on
+your box. These instructions can be replicated for other wifi cards by replacing the
+<code>rtwn0</code> text where it appears in the code blocks with the name of the driver for the
+card you are trying to use (assuming that there is a driver for your card and it is available
+for the version of FreeBSD you are using).</p>
+</div>
+</article>
+
+    <hr />
+    <p class="articleTagsContainer">
+        <span> </span>
+        <strong>Tags:</strong>
+        
+            <a
+                
+                href="/tags/freebsd">#FreeBSD</a>
+        
+            <a
+                
+                href="/tags/networking">#networking</a>
+        
+            <a
+                
+                href="/tags/tl-wn725n">#TL-WN725N</a>
+        
+            <a
+                
+                href="/tags/tp-link">#TP Link</a>
+        
+            <a
+                
+                href="/tags/wifi">#wifi</a>
+        
+    </p>
+
+
+
+
+
+
+                    </main><footer>
+    <hr />
+
+<p><small>
+        2023 &copy; Copyright Graham Kerr
+    </small></p>
+    <p><small>
+        <a href='https://gitlab.com/gabmus/hugo-ficurinia'>Ficurinia theme</a> for <a href='https://gohugo.io'>Hugo</a> by <a href='https://gabmus.org'>Gabriele Musco</a>. Licensed under <a href='https://www.gnu.org/licenses/agpl-3.0.html'>GNU AGPLv3</a>.
+    </small></p>
+</footer>
+</div>
+            </div>
+        </div>
+
+
+</body>
+</html>

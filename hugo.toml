@@ -1,0 +1,14 @@
+baseURL = 'https://bytemycode.co.uk/'
+languageCode = 'en-gb'
+title = 'A Linux & *BSD Blog'
+#theme = 'ananke'
+theme = 'hugo-ficurinia'
+
+copyright = "Copyright Graham Kerr"
+paginate = 5
+summaryLength = 70
+
+[params]
+	author = "Hairymunky"
+	description = "A blog mainly about Linux and FreeBSD"
+	
