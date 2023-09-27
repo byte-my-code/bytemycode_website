@@ -3,7 +3,7 @@ title = 'Setting Up A Wireless USB Network Card In FreeBSD'
 date = 2023-09-24T15:22:23+01:00
 description = 'Setting up a TP Link TL-WN725N USB wireless adapter on FreeBSD. This is a walkthrough guide for installing the adapter based on the RTL8188EU network device.'
 comments = true
-tags = [ 'FreeBSD', 'wifi', 'networking', 'TP Link', 'TL-WN725N' ]
+tags = [ 'FreeBSD', 'wifi', 'Networking', 'TP Link', 'TL-WN725N' ]
 image = '/images/wifi.jpg'
 draft = false
 +++
@@ -83,6 +83,3 @@ your box. These instructions can be replicated for other wifi cards by replacing
 ```rtwn0``` text where it appears in the code blocks with the name of the driver for the
 card you are trying to use (assuming that there is a driver for your card and it is available
 for the version of FreeBSD you are using).
-
-
-
