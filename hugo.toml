@@ -11,4 +11,10 @@ summaryLength = 70
 [params]
 	author = "Hairymunky"
 	description = "A blog mainly about Linux and FreeBSD"
-	
+
+[markup]
+  [markup.tableOfContents]
+    endLevel = 5
+    ordered = false
+    startLevel = 1
+
