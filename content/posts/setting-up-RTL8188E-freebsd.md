@@ -26,7 +26,7 @@ either ```doas``` or ```sudo``` depending on which is installed on your system.
 
 ### Step 1
 
-Firsty we need to create the wireless Device by running
+Firstly we need to create the wireless Device by running
 
 ```
 ifconfig wlan create wlandev rtwn0
